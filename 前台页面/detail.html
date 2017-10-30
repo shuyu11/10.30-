@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+</head>
+<body>
+<script>
+    var test = location.search.split('=')[1];
+    console.log(test)//1
+    $(function(){
+        if (test=='sli'){
+            $.ajax({
+                url:'http://localhost:3000/list/list',
+                type:'get',
+                dataType:'JSON',
+                success:function(e){
+                    for(i in e){
+                        $('body').append(`<div><p><a href="detail.html?id=${e[i].id}">${e[i].title}</a><a href="#">${e[i].date}</a></p></div>`)
+
+                    }
+                }
+            })
+        }else {
+            $.ajax({
+                url:'http://localhost:3000/list/detail',
+                type:'post',
+                data:{id:test},
+                dataType:'JSON',
+                success:function(e){
+                    console.log(e)
+                    $('body').append(`<h1>${e[0].title}</h1><p><${e[0].detail}/p>`)
+                }
+            })
+        }
+    })
+
+
+
+</script>
+</body>
+</html>
